@@ -101,17 +101,6 @@ const MiniProjects = () => {
       github: 'https://github.com/diddy0077/Todo-List-App',
       live: 'https://diddy0077.github.io/Todo-List-App/',
       difficulty: 'Intermediate'
-    },
-    {
-      id: 10,
-      title: 'To-Do List App',
-      description: 'A minimalist and functional To-Do List application that allows users to add, complete, and delete tasks. Also features a dark mood toggle.',
-      tech: ['HTML', 'CSS', 'JavaScript'],
-      icon: Code,
-      color: '#54a0cf',
-      github: 'https://github.com/diddy0077/Todo-List-App',
-      live: 'https://diddy0077.github.io/Todo-List-App/',
-      difficulty: 'Intermediate'
     }
   ];
 

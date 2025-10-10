@@ -21,6 +21,13 @@ const Hero = () => {
     '  passion: "Clean Code"',
     '};'
   ];
+  
+  
+  const links = ['https://github.com/diddy0077', 'https://twitter.com/Daniel924644624', 'https://www.linkedin.com/in/daniel-udeh-a03971350/', 'mailto:daniludeh007@yahoo.com']
+
+  const href = (icon) => {
+    links.map((link) => link.includes(icon))
+  }
 
   useEffect(() => {
     if (currentIndex < roles.length) {
@@ -157,7 +164,7 @@ const Hero = () => {
               {[Github, Linkedin, Twitter, Mail].map((Icon, index) => (
                 <motion.a
                   key={index}
-                  href="#"
+                  href={href(Icon)}
                   className="w-12 h-12 glass rounded-xl flex items-center justify-center text-gray-300 hover:text-cyan-400 transition-all duration-300 hover:scale-110"
                   whileHover={{ y: -3 }}
                   whileTap={{ scale: 0.95 }}
