@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { ChevronDown, Sparkles, Code, Palette, Zap, Mail, Github, Linkedin, Twitter } from 'lucide-react';
+import { ChevronDown, Sparkles, Code, Palette, Zap, Mail, Github, Linkedin, Twitter,DownloadIcon } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import profileImage from '../assets/me.jpg';
 
@@ -194,13 +194,13 @@ const Hero = () => {
                 View My Work
               </motion.button>
               <motion.button
-                onClick={() => document.querySelector('#contact').scrollIntoView({ behavior: 'smooth' })}
+                onClick={() => window.open("/danieludehCV.pdf")}
                 className="glass border border-cyan-400 text-cyan-400 px-8 py-4 rounded-xl font-semibold hover:bg-cyan-400 hover:text-black transition-all duration-300 flex items-center justify-center gap-2"
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <Mail className="w-5 h-5" />
-                Contact Me
+                <DownloadIcon className="w-5 h-5" />
+                Download CV
               </motion.button>
             </motion.div>
           </motion.div>
