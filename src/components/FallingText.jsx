@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, memo } from 'react';
 import { motion } from 'framer-motion';
 
-const FallingText = () => {
+const FallingText = memo(() => {
   const [texts, setTexts] = useState([]);
 
   const textOptions = [
@@ -38,7 +38,7 @@ const FallingText = () => {
   useEffect(() => {
     const generateTexts = () => {
       const newTexts = [];
-      for (let i = 0; i < 25; i++) {
+      for (let i = 0; i < 15; i++) {
         newTexts.push({
           id: i,
           text: textOptions[Math.floor(Math.random() * textOptions.length)],
@@ -81,6 +81,6 @@ const FallingText = () => {
       ))}
     </div>
   );
-};
+});
 
 export default FallingText;

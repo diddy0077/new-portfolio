@@ -1,9 +1,9 @@
 import { motion } from 'framer-motion';
 import { ChevronDown, Sparkles, Code, Palette, Zap, Mail, Github, Linkedin, Twitter,DownloadIcon } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, memo } from 'react';
 import profileImage from '../assets/me.jpg';
 
-const Hero = () => {
+const Hero = memo(() => {
   const [displayedText, setDisplayedText] = useState('');
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isTyping, setIsTyping] = useState(true);
@@ -17,8 +17,7 @@ const Hero = () => {
   const codeSnippets = [
     'const developer = {',
     '  name: "Daniel Udeh",',
-    '  skills: ["React", "TypeScript"],',
-    '  passion: "Clean Code"',
+    '  skills: ["React", "TypeScript"]',
     '};'
   ];
   
@@ -370,6 +369,6 @@ const Hero = () => {
       </div>
     </section>
   );
-};
+});
 
 export default Hero;

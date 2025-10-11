@@ -1,6 +1,6 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, memo } from 'react';
 
-const Particles = () => {
+const Particles = memo(() => {
   const canvasRef = useRef(null);
 
   useEffect(() => {
@@ -54,7 +54,7 @@ const Particles = () => {
 
     // Create particles
     const particles = [];
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 20; i++) {
       particles.push(new Particle());
     }
 
@@ -106,6 +106,6 @@ const Particles = () => {
       style={{ background: 'transparent' }}
     />
   );
-};
+});
 
 export default Particles;

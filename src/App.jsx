@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, lazy, Suspense } from 'react';
 import { ThemeProvider } from './context/ThemeContext';
 import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import About from './components/About';
+const Hero = lazy(() => import('./components/Hero'));
+const About = lazy(() => import('./components/About'));
 import Skills from './components/Skills';
 import Projects from './components/Projects';
 import MiniProjects from './components/MiniProjects';
@@ -21,7 +21,7 @@ function App() {
     // Simulate loading time
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 2500);
+    }, 500);
 
     return () => clearTimeout(timer);
   }, []);
@@ -34,7 +34,7 @@ function App() {
         {isLoading ? (
           <Loading />
         ) : (
-          <>
+          <Suspense fallback={<Loading />}>
             <ScrollProgress />
             <Navbar />
             <main className="lg:pl-20 pt-16 lg:pt-0 relative z-10 w-full max-w-full overflow-x-hidden lg:pt-0">
@@ -47,7 +47,7 @@ function App() {
               <Footer />
             </main>
             <ScrollToTop />
-          </>
+          </Suspense>
         )}
       </div>
     </ThemeProvider>

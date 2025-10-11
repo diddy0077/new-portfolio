@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
+import { memo } from 'react';
 
-const About = () => {
+const About = memo(() => {
   return (
     <section id="about" className="py-20 px-4">
       <div className="max-w-6xl mx-auto">
@@ -12,7 +13,7 @@ const About = () => {
           className="text-center mb-12"
         >
           <h2 className="text-4xl font-bold gradient-text mb-4">About Me</h2>
-          <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-lg text-gray-300 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
             I'm a passionate frontend developer with expertise in all modern frontend frameworks and tools including React, Next.js, TypeScript, JavaScript, Tailwind CSS, and more.
             I love creating beautiful, responsive, and user-friendly applications with cutting-edge technologies.
           </p>
@@ -112,6 +113,6 @@ const About = () => {
       </div>
     </section>
   );
-};
+});
 
 export default About;
