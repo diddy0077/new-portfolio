@@ -24,9 +24,25 @@ const Hero = memo(() => {
   
   const links = ['https://github.com/diddy0077', 'https://twitter.com/Daniel924644624', 'https://www.linkedin.com/in/daniel-udeh-a03971350/', 'mailto:daniludeh007@yahoo.com']
 
-  const href = (icon) => {
-    links.map((link) => link.includes(icon))
-  }
+  const socials = [
+    {
+      icon: Github,
+      href: links[0]
+    },
+    {
+      icon: Twitter,
+      href: links[1]
+    },
+    {
+      icon: Linkedin,
+      href: links[2]
+    },
+    {
+      icon: Mail,
+      href: links[3]
+    }
+  ]
+
 
   useEffect(() => {
     if (currentIndex < roles.length) {
@@ -160,10 +176,11 @@ const Hero = memo(() => {
               transition={{ duration: 0.8, delay: 1 }}
               className="flex justify-center lg:justify-start gap-4 mb-8"
             >
-              {[Github, Linkedin, Twitter, Mail].map((Icon, index) => (
+              {socials.map((Icon, index) => (
                 <motion.a
                   key={index}
-                  href={href(Icon)}
+                  href={Icon.href}
+                  target='_blank'
                   className="w-12 h-12 glass rounded-xl flex items-center justify-center text-gray-300 hover:text-cyan-400 transition-all duration-300 hover:scale-110"
                   whileHover={{ y: -3 }}
                   whileTap={{ scale: 0.95 }}
@@ -171,7 +188,7 @@ const Hero = memo(() => {
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: 1.2 + index * 0.1 }}
                 >
-                  <Icon className="w-6 h-6" />
+                  <Icon.icon className="w-6 h-6" />
                 </motion.a>
               ))}
             </motion.div>
