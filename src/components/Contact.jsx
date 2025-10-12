@@ -22,16 +22,19 @@ const Contact = () => {
 
     try {
       await emailjs.send(
-        'YOUR_SERVICE_ID', // Replace with your EmailJS service ID
-        'YOUR_TEMPLATE_ID', // Replace with your EmailJS template ID
+        'service_a6hjkhb', // Replace with your EmailJS service ID
+        'template_9qpl58f', // Replace with your EmailJS template ID
         {
           from_name: formData.name,
           from_email: formData.email,
           message: formData.message,
         },
-        'YOUR_PUBLIC_KEY' // Replace with your EmailJS public key
+        'ceTU-oX8VYVv9Tgs6' // Replace with your EmailJS public key
       );
       setSubmitMessage('Message sent successfully!');
+      setTimeout(() => {
+         setSubmitMessage('')
+      }, 2000)
       setFormData({ name: '', email: '', message: '' });
     } catch (error) {
       setSubmitMessage('Failed to send message. Please try again.');
