@@ -9,7 +9,7 @@ const Hero = memo(() => {
   const [isTyping, setIsTyping] = useState(true);
 
   const roles = [
-    'Frontend Developer',
+    'Full-Stack Developer',
     'React Specialist',
     'Javascript Enthusiast'
   ];

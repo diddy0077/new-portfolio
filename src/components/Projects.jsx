@@ -1,191 +1,11 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { ExternalLink, Github, X, Calendar, Users, Star, Code2, Eye } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import Loader from './Loader';
 
-const Projects = () => {
+const Projects = ({projects, loading}) => {
   const [selectedProject, setSelectedProject] = useState(null);
-
-const projects = [
-
-    {
-  id: 1,
-  title: 'Job Tracker Application',
-  shortDescription: 'A seamless dark theme and interactive Job Application Tracker built with React, Tailwind CSS, and JSON Server.',
-  description: 'A comprehensive job application tracking platform that allows users to manage their job search process efficiently. Built with modern web technologies for optimal performance and user experience.',
-  fullDescription: 'This professional job tracking application features a responsive dark-themed UI with smooth animations, statistics dashboard with pie charts, activity logs for tracking changes, search and filter functionality, and CRUD operations for applications. The platform includes a mock backend API powered by JSON Server for handling data, with a focus on user experience and technical excellence in React development.This app helps you keep track of job applications, monitor their statuses, and visualize progress with charts.',
-  technologies: ['React', 'Tailwind CSS', 'Framer Motion', 'React Router DOM', 'React Toastify', 'Recharts', 'JSON Server', 'Vite'],
-  image: 'https://i.ibb.co/mrt3t5L8/Screenshot-72.png',
-  github: 'https://github.com/diddy0077/job-tracker-app',
-  live: 'https://jobtrackera.netlify.app/',
-  featured: true,
-  category: 'Web Development',
-  duration: '3 weeks',
-  team: 'Solo Project',
-  status: 'Completed',
-  features: [
-    'Add new applications with role, company, status, link, and notes',
-    'Activity Logs - automatically track changes (e.g., status updates, edits)',
-    'Statistics Dashboard - visualize application statuses with Recharts (pie charts, etc)',
-    'Search & Filter - filter by status, company, or role',
-    'Edit & Delete applications',
-    'Responsive UI - styled with Tailwind CSS',
-    'Fast local API powered by JSON Server',
-    'Dark theme with smooth animations using Framer Motion'
-  ],
-  challenges: 'Implementing real-time data visualization with Recharts while maintaining performance, managing state across components with React hooks, and integrating a mock API with JSON Server for seamless data handling.',
-  learnings: 'Mastered modern React development with hooks and routing, advanced CSS with Tailwind utilities, animation libraries like Framer Motion, data visualization with Recharts, and basic API integration with JSON Server.'
-},
-    {
-  id: 2,
-  title: 'FlyNow',
-  shortDescription: 'Modern flight search application that helps users find flights quickly and easily, built with React frontend and Node.js/Express backend with real-time API integration.',
-  description: 'A comprehensive travel booking platform for FlyNow, offering flight search, hotel bookings, car rentals, and travel deals. Built with cutting-edge technologies for optimal performance and user experience.',
-  fullDescription: 'This professional travel booking website showcases FlyNow\'s services in flight search and booking, hotel reservations, car rentals, and travel planning. The platform features a responsive design with smooth animations, multi-language support, payment integration, contact forms, and backend API integration for real-time flight and hotel data. It demonstrates modern web development practices with a focus on user experience, internationalization, and technical excellence.',
-  technologies: ['React', 'Vite', 'Tailwind CSS', 'Framer Motion', 'React Router DOM', 'Node.js', 'Express.js', 'Amadeus API', 'i18next', 'react-i18next', 'react-paystack', 'AOS', 'Lottie React', 'Keen Slider', 'Lucide React', '@headlessui/react', '@heroicons/react', '@emailjs/browser'],
-  image: 'https://i.ibb.co/BV7PhTkX/flynow-homepage.png',
-  github: 'https://github.com/diddy0077/flynow-app',
-  live: 'https://fly-noww.netlify.app/',
-  featured: true,
-  category: 'Full-Stack Web Development',
-  duration: '3 months',
-  team: 'Solo Project',
-  status: 'Completed',
-  features: [
-    'Responsive web design with mobile-first approach',
-    'Smooth animations and interactive elements using Framer Motion and Lottie',
-    'Flight search with real-time API integration (Amadeus)',
-    'Hotel booking and car rental services',
-    'Multi-language support with i18next',
-    'Payment processing with Paystack integration',
-    'Contact forms with EmailJS integration',
-    'Image carousels and sliders with Keen Slider',
-    'Loading animations and scroll effects with AOS',
-    'Professional UI/UX design with Tailwind CSS and custom components'
-  ],
-  challenges: 'Integrating real-time flight API with Amadeus while maintaining performance, implementing multi-language support across the app, handling payment processing securely, and ensuring cross-browser compatibility with complex animations.',
-  learnings: 'Mastered advanced React development with hooks, routing, and state management, API integration with third-party services, payment gateway implementation, internationalization with i18next, animation libraries like Framer Motion and Lottie, and modern CSS with Tailwind utilities.'
-},
-    {
-  id: 3,
-  title: 'CineSearch',
-  shortDescription: 'A modern movie search and discovery web application built with React and Firebase',
-  description: 'CineSearch is a comprehensive movie discovery platform that allows users to search for movies, view detailed information, watch trailers, and manage their personal watchlist. Built with cutting-edge technologies for optimal performance and user experience.',
-  fullDescription: 'This professional movie search website showcases CineSearch\'s capabilities in web application development, software engineering, and user experience design. The platform features a responsive design with smooth animations, movie details with cast and crew information, trailer playback, user authentication, watchlist management, and a commenting system. It demonstrates modern web development practices with a focus on user experience and technical excellence.',
-  technologies: ['React', 'Vite', 'Tailwind CSS', 'Firebase', 'React Router', 'TMDB API', 'Lucide React', 'Three.js'],
-  image: 'https://i.ibb.co/MkNChHh3/homepage.png',
-  github: 'https://github.com/diddy0077/Cinesearch',
-  live: 'https://cinesearch-app.netlify.app/',
-  featured: true,
-  category: 'Web Development',
-  duration: '2 weeks',
-  team: 'Personal Project',
-  status: 'Completed',
-  features: [
-    'Movie search with real-time results from TMDB API',
-    'Detailed movie pages with cast, crew, and similar recommendations',
-    'Trailer playback in modal windows',
-    'User authentication with Firebase (Signup, Login, Logout)',
-    'Personalized watchlist stored in Firestore',
-    'Profile management with password change and account deletion',
-    'Commenting system on movie pages',
-    'Dark mode theme for cinematic experience',
-    'Responsive design optimized for all devices',
-    'Smooth animations and interactive UI elements'
-  ],
-  challenges: 'Integrating Firebase authentication and Firestore for user data management, handling API rate limits and error states, implementing responsive design across multiple screen sizes, and optimizing performance for large movie datasets.',
-  learnings: 'Mastered modern React development with hooks and routing, Firebase authentication and database integration, API consumption and data management, advanced CSS with Tailwind utilities, and responsive web design principles.'
-},
   
-    {
-  id: 4,
-  title: 'WindForest Bank',
-  shortDescription: 'Comprehensive full-stack banking simulation web application providing complete banking experience with user authentication, account management, and administrative controls',
-  description: 'A comprehensive full-stack banking simulation web application built with React and Express.js. This application provides a complete banking experience including user authentication, account management, money transfers, loan applications, and administrative controls.',
-  fullDescription: 'WindForest Bank is a modern banking simulation platform that offers a complete digital banking experience. Built with cutting-edge technologies, it features user authentication with OTP verification, multiple account types (Checking, Savings, High-Yield Savings, Business), instant money transfers, beneficiary management, advanced transaction history with search and filtering, loan applications with built-in calculator, profile management, account linking with micro-deposit verification, real-time notifications, PDF statement generation, and comprehensive admin dashboard for user management and transaction controls. The platform emphasizes responsive design, smooth animations, data visualization with charts, and robust security features.',
-  technologies: ['React', 'Vite', 'Tailwind CSS', 'Framer Motion', 'React Router DOM', 'Lucide React', 'React Toastify', 'Recharts', 'jsPDF', 'EmailJS', 'Express.js', 'JSON Server', 'Resend'],
-  image: 'https://i.ibb.co/PGGJNpKt/Screenshot-99.png',
-  github: 'https://github.com/diddy0077/windforest-bank',
-  live: 'https://windforestbank.netlify.app/',
-  featured: true,
-  category: 'Full-Stack Web Application',
-  duration: '6 months',
-  team: 'Solo Project',
-  status: 'In Progress',
-  features: [
-    'User authentication with OTP verification via email',
-    'Support for multiple account types (Checking, Savings, High-Yield Savings, Business)',
-    'Instant internal and external money transfers',
-    'Beneficiary management for quick transfers',
-    'Enhanced transaction history with search, filtering, CSV export, and activity charts',
-    'Loan applications for Personal, Education, Car, Home, Business types with calculator',
-    'Loan dashboard for tracking applications and payment schedules',
-    'Profile management with password and security question updates',
-    'Account linking with micro-deposit verification',
-    'Real-time notifications system',
-    'PDF statement generation with transaction and loan details',
-    'Virtual debit card generation',
-    'Forgot password with OTP reset',
-    'Admin dashboard for user management and transfer restrictions',
-    'Transaction reversals with automatic balance adjustments',
-    'Responsive design with Tailwind CSS',
-    'Smooth animations using Framer Motion',
-    'Data visualization with Recharts',
-    'Email notifications integration',
-    'Security features including session management and data encryption'
-  ],
-  challenges: 'Implementing complex state management for real-time updates across user and admin interfaces, ensuring secure OTP verification and session handling, integrating multiple third-party services for email and PDF generation, maintaining data consistency in JSON Server mock API, and optimizing performance for smooth animations while handling large transaction datasets.',
-  learnings: 'Mastered full-stack development with React and Express.js, advanced state management with React hooks and context, modern CSS with Tailwind utilities and responsive design, animation libraries like Framer Motion, data visualization with Recharts, PDF generation with jsPDF, email integration with Resend and EmailJS, RESTful API design with JSON Server, security best practices including OTP and password hashing, and building scalable component architectures for complex banking workflows.'
-    },
-{
-  id: 5,
-  title: "Dovini Camera & Gears",
-  shortDescription: "Premium photography equipment e-commerce platform specializing in professional cameras, lenses, and photography gear",
-  description: "A comprehensive e-commerce website for Dovini, a premium photography equipment retailer offering professional cameras, lenses, lighting equipment, and accessories. Built with modern web technologies for optimal performance and user experience.",
-  fullDescription: "This professional e-commerce platform showcases Dovini's extensive catalog of photography equipment including DSLR cameras, mirrorless systems, professional lenses, studio lighting, tripods, and accessories. The platform features a responsive design with smooth animations, user authentication, shopping cart functionality, wishlist management, product reviews, and a comprehensive admin dashboard. It demonstrates modern e-commerce development practices with a focus on user experience, performance, and scalability.",
-  technologies: [
-    "React",
-    "Vite",
-    "Tailwind CSS",
-    "Framer Motion",
-    "React Router",
-    "Lucide React",
-    "React Context API",
-    "Local Storage",
-    "JSON Server",
-    "React Toastify",
-    "React Helmet",
-    "Swiper"
-  ],
-  image: "https://i.ibb.co/fdVwQWkw/Screenshot-100.png",
-  github: "https://github.com/diddy0077/dovini",
-  live: "https://dovini-ecommerce.netlify.app/",
-  featured: true,
-  category: "E-commerce",
-  duration: "6 months",
-  team: "Team Project",
-  status: "In Progress",
-  features: [
-    "Responsive e-commerce design with mobile-first approach",
-    "User authentication and protected routes",
-    "Advanced product catalog with search and filtering",
-    "Shopping cart and wishlist functionality",
-    "Product reviews and ratings system",
-    "User profile management with account settings",
-    "Order history and tracking",
-    "Multiple payment method integration",
-    "Admin dashboard for product management",
-    "Image zoom and gallery functionality",
-    "Smooth animations and interactive elements",
-    "SEO optimization with React Helmet",
-    "Toast notifications for user feedback",
-    "Local storage for cart persistence",
-    "Professional UI/UX design with Tailwind CSS"
-  ],
-  challenges: "Implementing complex state management for cart and wishlist across multiple components, ensuring responsive design works perfectly on all devices, integrating authentication with protected routes, and optimizing performance for large product catalogs with images.",
-  learnings: "Mastered React Context API for global state management, advanced routing with React Router including protected routes, modern CSS with Tailwind utilities, animation libraries like Framer Motion, authentication flow implementation, e-commerce UX patterns, and performance optimization techniques."
-}
-
-  ];
 
   const openProjectModal = (project) => {
     setSelectedProject(project);
@@ -194,6 +14,7 @@ const projects = [
   const closeProjectModal = () => {
     setSelectedProject(null);
   };
+
 
   return (
     <>
@@ -212,7 +33,7 @@ const projects = [
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {loading || projects.length === 0 ? <Loader prop={'Projects'} /> :(<div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {projects.map((project, index) => (
               <motion.div
                 key={project.title}
@@ -349,7 +170,7 @@ const projects = [
                 </div>
               </motion.div>
             ))}
-          </div>
+          </div>)}
         </div>
       </section>
 

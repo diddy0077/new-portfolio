@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { DiHtml5, DiCss3, DiReact, DiJavascript1, DiGit, DiGithubBadge } from 'react-icons/di';
-import { SiTailwindcss, SiNextdotjs, SiTypescript, SiJquery, SiFirebase } from 'react-icons/si';
+import { SiTailwindcss, SiNextdotjs, SiTypescript, SiJquery, SiFirebase, SiMongodb, SiExpress, SiNodedotjs } from 'react-icons/si';
 
 const Skills = () => {
   const skills = [
@@ -15,6 +15,9 @@ const Skills = () => {
     { name: 'Firebase', icon: SiFirebase, level: 80, color: '#FFCA28' },
     { name: 'Git', icon: DiGit, level: 85, color: '#F05032' },
     { name: 'GitHub', icon: DiGithubBadge, level: 85, color: '#181717' },
+    { name: 'Node.js', icon: SiNodedotjs, level: 80, color: '#339933' },
+    { name: 'Express.js', icon: SiExpress, level: 75, color: '#000000' },
+    { name: 'MongoDB', icon: SiMongodb, level: 80, color: '#47A248' },
   ];
 
   return (
@@ -94,12 +97,34 @@ const Skills = () => {
                   <h4 className="font-semibold text-cyan-400">Development Tools</h4>
                   <p className="text-gray-300 text-sm break-words">Version control, deployment, and collaboration</p>
                   <div className="flex flex-wrap gap-2 mt-2">
-                    {skills.slice(6).map((skill, idx) => (
+                    {skills.slice(6, 9).map((skill, idx) => (
                       <motion.div
                         key={skill.name}
                         initial={{ opacity: 0, scale: 0 }}
                         whileInView={{ opacity: 1, scale: 1 }}
                         transition={{ delay: 0.9 + idx * 0.1 }}
+                        viewport={{ once: true }}
+                        className="flex items-center gap-1 bg-gray-800/50 px-2 py-1 rounded-full"
+                      >
+                        <skill.icon className="w-3 h-3" style={{ color: skill.color }} />
+                        <span className="text-xs">{skill.name}</span>
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+              <div className="flex items-start gap-4">
+                <div className="w-4 h-4 bg-green-500 rounded-full mt-2 flex-shrink-0 animate-pulse"></div>
+                <div className="min-w-0 flex-1">
+                  <h4 className="font-semibold text-cyan-400">Backend & Database</h4>
+                  <p className="text-gray-300 text-sm break-words">Server-side development and database management</p>
+                  <div className="flex flex-wrap gap-2 mt-2">
+                    {skills.slice(11).map((skill, idx) => (
+                      <motion.div
+                        key={skill.name}
+                        initial={{ opacity: 0, scale: 0 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: 1.1 + idx * 0.1 }}
                         viewport={{ once: true }}
                         className="flex items-center gap-1 bg-gray-800/50 px-2 py-1 rounded-full"
                       >

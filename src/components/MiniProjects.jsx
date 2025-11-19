@@ -1,108 +1,10 @@
 import { motion } from 'framer-motion';
-import { ExternalLink, Github, Code, Zap, Palette, Gamepad2 } from 'lucide-react';
+import { ExternalLink, Github, Code, Zap, Palette, Gamepad2 } from 'lucide-react'; 
+import React,{ useState, useEffect } from 'react';
+import Loader from './Loader';
 
-const MiniProjects = () => {
-  const miniProjects = [
-    {
-      id: 1,
-      title: 'EasyVolts',
-      description: 'Modern technology solutions provider specializing in web and mobile development with cybersecurity expertise',
-      tech: ['React', 'Vite', 'Tailwind CSS', 'Framer Motion', 'React Router', 'Swiper', 'Node.js', 'Express', 'JSON Server'],
-      icon: Palette,
-      color: '#ff6b6b',
-      github: 'https://github.com/diddy0077/easyvolts',
-      live: 'https://easyvoltss.netlify.app/',
-      difficulty: 'Expert'
-    },
-    {
-      id: 2,
-      title: 'BlogManager',
-      description: 'A modern blogging platform built with React and Tailwind CSS for creating, managing, and reading blog posts with commenting functionality',
-      tech: ['React', 'Vite', 'Tailwind CSS', 'React Router DOM', 'JSON Server', 'Lucide React', 'React Toastify'],
-      icon: Code,
-      color: '#4ecdc4',
-      github: 'https://github.com/diddy0077/blog-manager',
-      live: 'https://blog-manager-dev.netlify.app/',
-      difficulty: 'Intermediate'
-    },
-    {
-      id: 3,
-      title: 'React Jobs',
-      description: 'A modern job listing application built with React and Tailwind CSS for managing job postings',
-      tech: ['React', 'Tailwind CSS', 'React Router', 'MirageJS', 'LocalStorage', 'Lucide React', 'React Spinners', 'React Toastify', 'JSON Server'],
-      icon: Zap,
-      color: '#45b7d1',
-      github: 'https://github.com/diddy0077/react-jobs',
-      live: 'https://reactjob-listing.netlify.app/',
-      difficulty: 'Intermediate'
-    },
-    {
-      id: 4,
-      title: 'Interactive Quiz App',
-      description: 'A sleek and interactive quiz application that tests users on multiple categories with real-time scoring and feedback. Built with HTML, CSS, and JavaScript to showcase dynamic DOM manipulation and state management.',
-      tech: ['HTML', 'CSS', 'JavaScript'],
-      icon: Gamepad2,
-      color: '#f9ca24',
-      github: 'https://github.com/diddy0077/Quiz-App',
-      live: 'https://diddy0077.github.io/Quiz-App/',
-      difficulty: 'Intermediate'
-    },
-    {
-      id: 5,
-      title: 'Rock Paper Scissors Game',
-      description: 'A stylish, animated Rock-Paper-Scissors game that lets users compete against the computer. Built using HTML, CSS, and JavaScript with real-time score tracking and conditional logic to determine round results.',
-      tech: ['HTML', 'CSS', 'JavaScript'],
-      icon: Code,
-      color: '#ff9ff3',
-      github: 'https://github.com/diddy0077/Rock-Paper-Scissors',
-      live: 'https://diddy0077.github.io/Rock-Paper-Scissors/',
-      difficulty: 'Intermediate'
-    },
-    {
-      id: 6,
-      title: 'Manage – Responsive Landing Page',
-      description: 'A clean and modern landing page built with Tailwind CSS. Features include a responsive layout, mobile-first navigation, and semantic HTML for accessibility.',
-      tech: ['React', 'Tailwind'],
-      icon: Zap,
-      color: '#54a0ff',
-      github: 'https://github.com/diddy0077/manage',
-      live: 'https://diddy0077.github.io/manage/',
-      difficulty: 'Intermediate'
-    },
-    {
-      id: 7,
-      title: 'Halcyon Theme Landing Page',
-      description: 'This project is a visually appealing landing page for the Halcyon theme, showcasing its color palette and supported editors (VS Code, Sublime, Atom, iTerm, Hyper). ',
-      tech: ['React', 'Tailwind'],
-      icon: Palette,
-      color: '#54a0ff',
-      github: 'https://github.com/diddy0077/halcyon-theme',
-      live: 'https://shiny-moxie-afff24.netlify.app/',
-      difficulty: 'Intermediate'
-    },
-    {
-      id: 8,
-      title: '🎲 Tenzies Game',
-      description: 'A fast-paced dice-rolling game built with React and Vite. Players roll 10 dice and try to get all numbers to match by strategically holding and re-rolling.',
-      tech: ['React', 'Tailwind', 'JavaScript'],
-      icon: Code,
-      color: '#54a0ff',
-      github: 'https://github.com/diddy0077/tenzies-game',
-      live: 'https://diddy0077.github.io/tenzies-game/',
-      difficulty: 'Intermediate'
-    },
-    {
-      id: 9,
-      title: 'To-Do List App',
-      description: 'A minimalist and functional To-Do List application that allows users to add, complete, and delete tasks. Also features a dark mood toggle.',
-      tech: ['HTML', 'CSS', 'JavaScript'],
-      icon: Code,
-      color: '#4ecdc4',
-      github: 'https://github.com/diddy0077/Todo-List-App',
-      live: 'https://diddy0077.github.io/Todo-List-App/',
-      difficulty: 'Intermediate'
-    }
-  ];
+const MiniProjects = ({ loading, codeLabs}) => {
+  
 
   const getDifficultyColor = (difficulty) => {
     switch (difficulty) {
@@ -112,6 +14,54 @@ const MiniProjects = () => {
       default: return 'text-gray-400 bg-gray-400/10';
     }
   };
+
+  const icons = {
+  Palette,
+  Code,
+  Zap,
+  Gamepad2,
+};
+  
+   
+  
+  if(loading) {
+      return (
+         <motion.div
+        initial={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.5 }}
+        className="fixed inset-0 z-50 flex items-center justify-center bg-gray-900"
+      >
+        <div className="text-center">
+          <motion.div
+            animate={{
+              rotate: 360,
+              scale: [1, 1.2, 1],
+            }}
+            transition={{
+              rotate: { duration: 2, repeat: Infinity, ease: "linear" },
+              scale: { duration: 1, repeat: Infinity, ease: "easeInOut" }
+            }}
+            className="w-16 h-16 border-4 border-cyan-400 border-t-transparent rounded-full mx-auto mb-4"
+          />
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+            className="text-gray-400"
+          >
+            Loading CodeLabs...
+          </motion.p>
+          <motion.div
+            initial={{ width: 0 }}
+            animate={{ width: "100%" }}
+            transition={{ delay: 0.6, duration: 2 }}
+            className="mt-4 h-1 bg-gradient-to-r from-pink-500 to-cyan-500 rounded-full"
+          />
+        </div>
+      </motion.div>
+       )
+    }
 
   return (
     <section id="mini-projects" className="py-20 px-4">
@@ -129,8 +79,8 @@ const MiniProjects = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {miniProjects.map((project, index) => (
+        {loading || codeLabs.length === 0 ? <Loader prop={'codeLabs'} /> :(<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {codeLabs.map((project, index) => (
             <motion.div
               key={project.id}
               initial={{ opacity: 0, y: 50 }}
@@ -142,12 +92,16 @@ const MiniProjects = () => {
             >
               {/* Header with icon and difficulty */}
               <div className="flex items-center justify-between mb-4">
-                <div
-                  className="p-3 rounded-xl"
-                  style={{ backgroundColor: `${project.color}20` }}
-                >
-                  <project.icon className="w-6 h-6" style={{ color: project.color }} />
-                </div>
+               <div
+  className="p-3 rounded-xl"
+  style={{ backgroundColor: `${project.color}20` }}
+>
+  {project.icon && React.createElement(icons[project.icon], { 
+    className: "w-6 h-6", 
+    style: { color: project.color } 
+  })}
+</div>
+
                 <span className={`px-2 py-1 rounded-full text-xs font-medium ${getDifficultyColor(project.difficulty)}`}>
                   {project.difficulty}
                 </span>
@@ -207,7 +161,7 @@ const MiniProjects = () => {
               </div>
             </motion.div>
           ))}
-        </div>
+        </div>)}
 
         {/* Call to action */}
         <motion.div

@@ -1,11 +1,16 @@
-import { Sun, Moon, Home, User, Code, Briefcase, Mail, Menu, X } from 'lucide-react';
+import { Sun, Moon, Home, User, Code, Briefcase, Mail, Menu, X, Settings } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { useContext } from 'react';
+import { AuthContext } from './AuthContext';
 
 const Navbar = () => {
   const { darkMode, toggleTheme } = useTheme();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const location = useLocation();
+  const { admin } = useContext(AuthContext)
 
   const navItems = [
     { name: 'Home', href: '#home', icon: Home },
@@ -14,6 +19,7 @@ const Navbar = () => {
     { name: 'Projects', href: '#projects', icon: Briefcase },
     { name: 'Code Lab', href: '#mini-projects', icon: Code },
     { name: 'Contact', href: '#contact', icon: Mail },
+    { name: 'Admin', href: '/admin', icon: Settings, isRouter: true },
   ];
 
   const scrollToSection = (href) => {
@@ -27,9 +33,14 @@ const Navbar = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
-  const handleMobileNavClick = (href) => {
-    scrollToSection(href);
-    setIsMobileMenuOpen(false);
+const handleMobileNavClick = (href, isRouter = false) => {
+    if (isRouter) {
+      // For admin page, just close menu since it's a separate route
+      setIsMobileMenuOpen(false);
+    } else {
+      scrollToSection(href);
+      setIsMobileMenuOpen(false);
+    }
   };
 
   return (
@@ -48,23 +59,40 @@ const Navbar = () => {
 
         <div className="flex flex-col space-y-4">
           {navItems.map((item, index) => (
-            <motion.button
+            <motion.div
               key={item.name}
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
-              onClick={() => scrollToSection(item.href)}
-              className="group relative p-4 rounded-2xl glass border border-white/10 hover:border-white/20 text-white hover:text-cyan-300 transition-all duration-300 transform hover:scale-110 hover:rotate-3 shadow-lg hover:shadow-xl hover:shadow-cyan-500/25"
-              title={item.name}
-              whileHover={{ y: -2 }}
-              whileTap={{ scale: 0.95 }}
             >
-              <item.icon className="w-6 h-6 drop-shadow-lg" />
-              <span className="absolute left-full ml-6 px-3 py-2 glass text-white text-sm rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-300 whitespace-nowrap border border-white/10 shadow-xl">
-                {item.name}
-                <div className="absolute right-full top-1/2 transform -translate-y-1/2 w-0 h-0 border-l-8 border-l-white/10 border-y-4 border-y-transparent"></div>
-              </span>
-            </motion.button>
+              {item.isRouter ? (
+                <Link
+                  to={item.href}
+                  className={`group relative p-4 rounded-2xl glass border border-white/10 hover:border-white/20 text-white hover:text-cyan-300 transition-all duration-300 transform hover:scale-110 hover:rotate-3 shadow-lg hover:shadow-xl hover:shadow-cyan-500/25 block ${
+                    location.pathname === item.href ? 'text-cyan-300 border-cyan-500/50' : ''
+                  }`}
+                  title={item.name}
+                >
+                  <item.icon className="w-6 h-6 drop-shadow-lg" />
+                  <span className="absolute left-full ml-6 px-3 py-2 glass text-white text-sm rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-300 whitespace-nowrap border border-white/10 shadow-xl">
+                    {item.name}
+                    <div className="absolute right-full top-1/2 transform -translate-y-1/2 w-0 h-0 border-l-8 border-l-white/10 border-y-4 border-y-transparent"></div>
+                  </span>
+                </Link>
+              ) : (
+                <button
+                  onClick={() => scrollToSection(item.href)}
+                  className="group relative p-4 rounded-2xl glass border border-white/10 hover:border-white/20 text-white hover:text-cyan-300 transition-all duration-300 transform hover:scale-110 hover:rotate-3 shadow-lg hover:shadow-xl hover:shadow-cyan-500/25 w-full"
+                  title={item.name}
+                >
+                  <item.icon className="w-6 h-6 drop-shadow-lg" />
+                  <span className="absolute left-full ml-6 px-3 py-2 glass text-white text-sm rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-300 whitespace-nowrap border border-white/10 shadow-xl">
+                    {item.name}
+                    <div className="absolute right-full top-1/2 transform -translate-y-1/2 w-0 h-0 border-l-8 border-l-white/10 border-y-4 border-y-transparent"></div>
+                  </span>
+                </button>
+              )}
+            </motion.div>
           ))}
         </div>
 
@@ -197,7 +225,7 @@ const Navbar = () => {
 
                 <div className="flex-1 p-6">
                   <div className="space-y-4">
-                    {navItems.map((item, index) => (
+                    {navItems.filter(item => !item.isRouter).map((item, index) => (
                       <motion.button
                         key={item.name}
                         initial={{ opacity: 0, x: 50 }}
@@ -212,6 +240,16 @@ const Navbar = () => {
                         <span className="font-medium">{item.name}</span>
                       </motion.button>
                     ))}
+                    
+                    {/* Admin link for mobile */}
+                    <Link
+                      to="/admin/login"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className="w-full flex items-center gap-4 p-4 rounded-xl glass border border-white/10 hover:border-white/20 text-left text-white hover:text-cyan-300 transition-all duration-300 group"
+                    >
+                      <Settings className="w-6 h-6 text-cyan-400 group-hover:text-cyan-300" />
+                      <span className="font-medium">Admin</span>
+                    </Link>
                   </div>
                 </div>
 

@@ -14,8 +14,7 @@ const About = memo(() => {
         >
           <h2 className="text-4xl font-bold gradient-text mb-4">About Me</h2>
           <p className="text-lg text-gray-300 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
-            I'm a passionate frontend developer with expertise in all modern frontend frameworks and tools including React, Next.js, TypeScript, JavaScript, Tailwind CSS, and more.
-            I love creating beautiful, responsive, and user-friendly applications with cutting-edge technologies.
+            I'm a passionate full-stack developer with expertise in modern frontend and backend technologies, including React, Next.js, TypeScript, JavaScript, Tailwind CSS, Node.js, MongoDB and Express. I love creating beautiful, responsive, and user-friendly applications that deliver seamless experiences across the full stack.
           </p>
         </motion.div>
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start">
@@ -105,6 +104,10 @@ const About = memo(() => {
                 <li className="flex items-center gap-3">
                   <div className="w-3 h-3 bg-gradient-to-r from-green-500 to-teal-500 rounded-full shadow-lg"></div>
                   <span className="font-medium">Performance & Optimization</span> - Web Vitals, SEO, Accessibility, Testing
+                </li>
+                <li className="flex items-center gap-3">
+                  <div className="w-3 h-3 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full shadow-lg"></div>
+                  <span className="font-medium">Backend Development</span> - Node.js, Express.js, MongoDB, RESTful APIs, Database Design
                 </li>
               </ul>
             </div>
