@@ -130,7 +130,7 @@ const Footer = () => {
               © 2025 Daniel Udeh. All rights reserved.
             </p>
             <p className="text-gray-400 text-sm md:text-base">
-              Built with ❤️ using React & Tailwind CSS
+              Built with ❤️ using React, Tailwind CSS & Express Js
             </p>
           </div>
         </motion.div>
